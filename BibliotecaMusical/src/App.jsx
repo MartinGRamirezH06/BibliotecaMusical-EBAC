@@ -13,21 +13,6 @@ class App extends Component{
       <>
         <Header></Header>
         <Main></Main>
-        <Song
-          titulo="Cancion 2"
-          autor="Autor 2"
-          duracion="2:00">
-        </Song>
-        <Song
-          titulo="Cancion 3"
-          autor="Autor 3"
-          duracion="2:00">
-        </Song>
-        <Song
-          titulo="Cancion 4"
-          autor="Autor 4"
-          duracion="2:00">
-        </Song>
       </>
     )
   }
