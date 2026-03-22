@@ -73,6 +73,43 @@ body{
   box-sizing: border-box;
   gap: 0.5rem;
 }
+.main__results{
+  width: 590px;
+  min-height: 400px;
+  background-color: #1a1a1a; 
+  border-radius: 8px;
+  padding: 20px;
+  margin: 1.4rem 0;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+  position: absolute;
+  left: 18.3rem;
+  top: 3rem;
+  box-sizing: border-box;
+  z-index: 999;
+}
+.result-item {
+  border-bottom: 1px solid #333;
+
+}
+.result-item .Song{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.add-Library-btn{
+  background-color: #ff0000;
+  color: #ffffff;
+  border-radius: 1rem;
+  width: 100%;
+  font-size: 1rem;
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  max-height: 2.2rem;
+  border-color:transparent;
+
+}
 .other__icons{
   width: 10%;
   display: flex;
@@ -215,4 +252,59 @@ main .main__nav nav{
 .Song p{
   grid-row: 2;
   text-align: center;
+}
+.library_container{
+  width: 50%;
+  min-height: 600px;
+  box-sizing: border-box;
+  position: fixed;
+  left: -100%;
+  top: 15rem;
+  background-color: #373737;
+  border-radius: 4rem;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  margin: 0;
+  transition: transform 0.5s ease;
+}
+.library_container__title{
+  grid-row: 1;
+  display: flex;
+  text-align: center;
+  color: #ffffff;
+  justify-content: center;
+  font-size: 2rem;
+  box-sizing: border-box;
+}
+.library_container__items{
+  grid-row: 2;
+  display: flex;
+  flex-direction: column;
+  padding: 0rem 3rem;
+  margin: 0;
+  box-sizing: border-box;
+  width: 100%;
+  gap:2rem;
+}
+
+.library_container__items .Song{
+  justify-content: space-between;
+  box-sizing: border-box;
+  display: flex;  
+  font-size: 1.5rem;
+  width: 100%;
+  align-items: center;
+  cursor: pointer;
+}
+.library_container__items .Song:hover{
+  background-color: #6a6a6a;
+}
+.library_container__items .Song h4{
+    margin: 0rem 4rem;
+}
+.library_container.closed{
+  left: -100%;
+}
+.library_container.open{
+  left: 15.5rem;  
 }

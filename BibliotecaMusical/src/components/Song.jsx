@@ -1,17 +1,18 @@
 import React,{Component} from "react";
 
-class Song extends Component{
-    constructor(props){
-        super(props)
-    }
-    render(){
-        return(
-            <div className="Song">
-                <h4>{this.props.titulo}</h4>
-                <p>{this.props.autor}</p>
-                <p>{this.props.duracion}</p>
+
+const Song=(props)=>{
+    const {id,titulo,autor,duracion,children}=props;
+    return(
+        <div className="Song">
+            <h4>{titulo}</h4>
+            <p>{autor}</p>                
+            <p>{duracion}</p>
+            <div className="song-Actions">
+                {children}
             </div>
-        )
-    }
+
+        </div>
+    )
 }
-export default Song
+export default Song;
