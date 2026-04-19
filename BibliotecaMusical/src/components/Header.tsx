@@ -1,8 +1,16 @@
+import React, { ChangeEvent, useState } from "react";
 
-const Header=(props)=>{    
+export interface HeaderProps{
+    setInput:(value:string)=>void;
+    onSearch:(event:React.FormEvent<HTMLFormElement>)=>void;
+    searchType:string;
+    setSearchType: (type: 'album' | 'track') => void;
+}
+
+
+const Header=({setInput,onSearch,searchType,setSearchType}:HeaderProps)=>{    
     //Recibe el la propiedad para menejar la funcion de useState de setInput de App
-    const {setInput,onSearch}=props;
-    const handleInputOnChange=(event)=>{
+    const handleInputOnChange=(event:ChangeEvent<HTMLInputElement>)=>{
         setInput(event.target.value);
         console.log(event.target.value)
     }
@@ -12,7 +20,7 @@ const Header=(props)=>{
                 <i><img src='/public/menuHamburguesa.png' alt='iconoMenu'></img></i>
                 <i><img src='/public/iconoYoutubeMusic.png' alt='iconoYoutubeMusic'></img></i>
             </div>
-            <div className='header__seach'>
+            <div className='header__search'>
                 <form onSubmit={onSearch}>
                     <input 
                         className='input_seach' 
@@ -22,6 +30,22 @@ const Header=(props)=>{
                         placeholder='Buscar canciones, albunes, artistas, o podcasts' 
                         onChange={handleInputOnChange}
                         autoComplete="off"/>
+                    <div className="search-filters">
+                        <button 
+                            className={ searchType === 'album' ? 'active' : ''} 
+                            onClick={() => setSearchType('album')}
+                            type="button"
+                        >
+                            Álbumes
+                        </button>
+                        <button
+                            className={searchType === 'track' ? 'active' : ''} 
+                            onClick={() => setSearchType('track')}
+                            type="button"
+                        >
+                            Canciones
+                        </button>
+                    </div>
                 </form>
 
             </div>
