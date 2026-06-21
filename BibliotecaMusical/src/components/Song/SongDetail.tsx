@@ -1,7 +1,8 @@
 import { useParams } from "react-router-dom";
-import useFetchSearch from "../hooks/useFetchSearch";
+import useFetchSearch from "../../hooks/useFetchSearch";
 import { useState } from "react";
-import { SongProps } from "./Song";
+import { SongProps } from "../Song/Song";
+import { SongDetailsCard } from "./styles";
 
 export interface SongDetailProps extends SongProps{
     strArtist?:string;
@@ -23,13 +24,14 @@ const SongDetail = () =>{
     const song = data[0];
 
     return(
-        <article className="songDetails">
+
+        <SongDetailsCard>
             <h2>{song.strTrack}</h2>
             <h3>{song.strAlbum}</h3>
             <h3>{song.strArtist}</h3>
             <h3>{song.intDuration}</h3>
             <h3>{song.strGenre}</h3>
-        </article>
+        </SongDetailsCard>
     )
 
 }

@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-
+import { AlbumCard, AlbumCard__Img } from "./styles";
 export interface AlbumProps{
     idAlbum:string;
     strArtist:string;
@@ -11,15 +11,18 @@ export interface AlbumProps{
 
 const Album=({idAlbum,strArtist,strAlbum,intYearReleased,children,strAlbumThumb}:AlbumProps)=>{
     return(
-        <div className="Album">
-            <img className="AlbumImg" src={strAlbumThumb || "/default-album.png"} alt="imagenAlbum"/>
+        <AlbumCard>
+            <AlbumCard__Img
+                src={strAlbumThumb || "/default-album.png"} 
+                alt="imagenAlbum"
+            />                
             <h4>{strAlbum}</h4>
             <p>{strArtist}</p>
             <p>{intYearReleased}</p>
             <div>
                 {children}
             </div>
-        </div>
+        </AlbumCard>
     )
 }
 export default Album;

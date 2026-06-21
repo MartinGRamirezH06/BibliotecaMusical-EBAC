@@ -1,10 +1,10 @@
-import Header from './components/Header.jsx'
-import Main from './components/Main'
-import SeachResults from './components/SeachResults.jsx'
-import Library from './components/Library.jsx'
+import Header from './components/Header/Header.js'
+import Main from './components/Main/Main.js'
+import SeachResults from './components/SearchResults/SeachResults.js'
+import Library from './components/Library/Library.js'
 import { useMusicApp } from './hooks/useMusicApp.js'
-import SongDetail from './components/SongDetail.js'
-import './index.css'
+import SongDetail from './components/Song/SongDetail.js'
+//import './index.css'
 import { Routes,Route } from 'react-router-dom'
 
 const App=()=>{

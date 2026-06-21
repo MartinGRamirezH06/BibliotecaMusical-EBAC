@@ -1,7 +1,7 @@
  import { useEffect, useState } from 'react'
 import useFetchSearch from './useFetchSearch';
-import { AlbumProps } from '../components/Album';
-import { SongProps } from '../components/Song';
+import { AlbumProps } from '../components/Album/Album';
+import { SongProps } from '../components/Song/Song';
 
 type SearchCategory = 'album' | 'track';
 
