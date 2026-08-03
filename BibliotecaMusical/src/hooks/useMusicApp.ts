@@ -1,7 +1,8 @@
  import { useEffect, useState } from 'react'
 import useFetchSearch from './useFetchSearch';
-import { AlbumProps } from '../components/Album/Album';
-import { SongProps } from '../components/Song/Song';
+import type { Song, Album } from '../components/types';
+
+
 
 type SearchCategory = 'album' | 'track';
 
@@ -9,7 +10,7 @@ export const useMusicApp = () => {
     const [input,setInput] = useState("");
     const [searchType,setSearchType] = useState<SearchCategory>('album');
     const [isLibraryOpen,setIsLibraryOpen] = useState(false);
-    const [library,setLibrary] = useState<(AlbumProps | SongProps)[]>([]);
+    const [library,setLibrary] = useState<(Album | Song )[]>([]);
     
     
     const toogleLibrary=()=>{
@@ -46,7 +47,7 @@ const url = input.trim()
 
     const resultsFromAPI=data ?? null;
 
-    const AgregarALibreria = (item: AlbumProps | SongProps) => {
+    const AgregarALibreria = (item: Album | Song) => {
       const idActual = "idAlbum" in item ? item.idAlbum : item.idTrack;
       
       const yaSeAgrego = library.some((fav) => {

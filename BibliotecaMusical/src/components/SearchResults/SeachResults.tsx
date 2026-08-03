@@ -1,8 +1,13 @@
-import Album, { AlbumProps } from "../Album/Album";
-import Song, {SongProps} from "../Song/Song";
+import AlbumComponent from "../Album/Album";
+import SongComponent from "../Song/Song";
+import type { Album, Song } from "../types";
 import { Link } from "react-router-dom";
-import { ActionButttons, MainContainer__ResultsContainer, ResultsContainer__ItemsContainer } from "./styles";
-type SearchItem= AlbumProps | SongProps;
+import { ActionButtons, MainContainer__ResultsContainer, ResultsContainer__ItemsContainer } from "./styles";
+import { useDispatch, UseDispatch } from 'react-redux';
+import { addAlbum, addSong } from "../../redux/libraryActions"; 
+
+type SearchItem= Album | Song;
+
 export interface ResultsProps{
     searchResults:SearchItem[] | null;
     onClick:(item: SearchItem) => void;
@@ -12,6 +17,8 @@ export interface ResultsProps{
 
 const SeachResults=({searchResults, onClick, loading,error}:ResultsProps)=>{
     
+    const dispatch = useDispatch();
+
     if(loading){
         return (
         <MainContainer__ResultsContainer>
@@ -46,38 +53,44 @@ const SeachResults=({searchResults, onClick, loading,error}:ResultsProps)=>{
                 {searchResults.map((result) => {
                     const isAlbum = !("idTrack" in result);
                     return(
-                        <ResultsContainer__ItemsContainer>
+                        <ResultsContainer__ItemsContainer key={isAlbum ? result.idAlbum : result.idTrack}>
                             {isAlbum ? (
-                                <Album 
+                                <AlbumComponent 
                                     idAlbum={result.idAlbum}
                                     strAlbumThumb={result.strAlbumThumb}
                                     strAlbum={result.strAlbum}
                                     strArtist={result.strArtist}
                                     intYearReleased={result.intYearReleased}
                                 >
-                                    <ActionButttons
+                                    <ActionButtons
                                         type="button"
                                         onClick={ () => {
-                                        onClick(result)
+                                            dispatch(addAlbum(result as Album))
                                         }}
                                     >
                                         Agregar a mi biblioteca
-                                    </ActionButttons>
-                                </Album>
+                                    </ActionButtons>
+                                </AlbumComponent>
                             ):(
-                                <Song
+                                <SongComponent
                                     idTrack={result.idTrack}
                                     strTrack={result.strTrack}
                                     strAlbum={result.strAlbum}
                                 >
+                                    <ActionButtons
+                                        type="button"
+                                        onClick={() => dispatch(addSong(result))}
+                                        >
+                                        Agregara a mi biblioteca
+                                    </ActionButtons>
                                     <Link to={`/song/${result.idTrack}`}>
-                                        <ActionButttons
+                                        <ActionButtons
                                             type="button"
                                         >
                                             Detalles
-                                        </ActionButttons>
+                                        </ActionButtons>
                                     </Link>
-                                </Song>
+                                </SongComponent>
                             )}
                         </ResultsContainer__ItemsContainer>
                     )

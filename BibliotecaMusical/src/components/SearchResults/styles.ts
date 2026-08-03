@@ -27,6 +27,12 @@ const ResultsContainer__ItemsContainer = styled.div`
         justify-content: space-between;
         align-items: center;
         gap: 1rem;
+
+        div:last-child{
+            display: flex;
+            flex-direction: column;
+            gap:1rem;
+        }
     }
     ${AlbumCard}{
         display: flex;
@@ -39,7 +45,7 @@ const ResultsContainer__ItemsContainer = styled.div`
         }
     }
 `;
-const ActionButttons = styled.button`
+const ActionButtons = styled.button`
     background-color:${({theme}) => theme.colors.primary };
     color: ${({theme})=> theme.colors.text};
     border-radius: 1rem;
@@ -59,5 +65,5 @@ const ActionButttons = styled.button`
 export{
     MainContainer__ResultsContainer,
     ResultsContainer__ItemsContainer,
-    ActionButttons
+    ActionButtons
 }

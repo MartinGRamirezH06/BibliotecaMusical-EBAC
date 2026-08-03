@@ -1,10 +1,10 @@
 import { useParams } from "react-router-dom";
 import useFetchSearch from "../../hooks/useFetchSearch";
 import { useState } from "react";
-import { SongProps } from "../Song/Song";
+import { Song } from "../types/index";
 import { SongDetailsCard } from "./styles";
 
-export interface SongDetailProps extends SongProps{
+export interface SongDetailProps extends Song{
     strArtist?:string;
     intDuration?:string;
     strGenre?:string;

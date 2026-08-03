@@ -1,18 +1,27 @@
-import Album, { AlbumProps } from "../Album/Album";
-import Song,{SongProps} from "../Song/Song";
+import { useDispatch, useSelector } from "react-redux";
+import AlbumComponent from "../Album/Album";
+import SongComponent from "../Song/Song";
+import type { Song, Album } from "../types";
 import { LibraryContainer__ItemsContainer, LibraryContainer__TitleContainer, MainContainer__LibraryContainer } from "./styles";
+import { RootState } from "../../redux/store";
+import { ActionButtons } from "../SearchResults/styles";
+import { removeSong } from "../../redux/libraryActions";
+import { PlaylistDefault } from "./PlaylistDefault";
 
-export interface LibraryProps{
-    library:(AlbumProps | SongProps)[];
-}
-const Library=({library=[]}:LibraryProps)=>{
 
-    if(!library || library.length==0){
+const Library=()=>{
+
+    const dispatch = useDispatch();
+
+    const playlist = useSelector((state: RootState) => state.libraryReducers.playlist);
+    console.log(`ELementos de la libreria: `, playlist)
+
+    if(!playlist || playlist.length==0){
         return(
             <MainContainer__LibraryContainer>
                 <LibraryContainer__TitleContainer>
                     <h2 className="library_container__title">Biblioteca</h2>
-                    <p>Playlist agregas:{library.length}</p>
+                    <p>Playlist agregas:{playlist.length}</p>
                 </LibraryContainer__TitleContainer>
             </MainContainer__LibraryContainer>
         )
@@ -23,28 +32,26 @@ const Library=({library=[]}:LibraryProps)=>{
             <MainContainer__LibraryContainer>
                 <LibraryContainer__TitleContainer>
                     <h2>Biblioteca</h2>
-                    <p>Playlist agregadas:{library.length}</p>
+                    <p>Playlist agregadas:{playlist.length}</p>
                 </LibraryContainer__TitleContainer>
                 <LibraryContainer__ItemsContainer>
-                    {library.map((item,index)=>{
-                        const isAlbum="idAlbum" in item;
+                    {playlist.map((playlist)=>{
+                        const isAlbum= playlist.strArtist !== undefined;
                         return isAlbum ?(
-                            <Album
-                                key={index} 
-                                idAlbum={item.idAlbum}
-                                strAlbumThumb={item.strAlbumThumb}
-                                strAlbum={item.strAlbum}
-                                strArtist={item.strArtist}
-                                intYearReleased={item.intYearReleased}
+                            <AlbumComponent
+                                key={playlist.idPlaylist} 
+                                idAlbum={playlist.idPlaylist}
+                                strAlbumThumb={playlist.strAlbumThumb}
+                                strAlbum={playlist.name}
+                                strArtist={playlist.strArtist!}
+                                intYearReleased={playlist.intYearReleased!}
                             />
-                        ):(
-                        <Song
-                            key={item.idTrack}
-                            idTrack={item.idTrack}
-                            strTrack={item.strTrack}
-                            strAlbum={item.strAlbum}
-                        />
-                        );
+                        ) : (
+                            <PlaylistDefault
+                                key={playlist.idPlaylist}
+                                playlist={playlist}
+                            />
+                        )
                     })}
                 </LibraryContainer__ItemsContainer>
             </MainContainer__LibraryContainer>

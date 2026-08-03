@@ -1,15 +1,8 @@
-import { ReactNode } from "react";
 import { AlbumCard, AlbumCard__Img } from "./styles";
-export interface AlbumProps{
-    idAlbum:string;
-    strArtist:string;
-    strAlbum:string;
-    intYearReleased:string;
-    strAlbumThumb?:string;
-    children?:ReactNode
-}
+import type { Album } from "../types";
 
-const Album=({idAlbum,strArtist,strAlbum,intYearReleased,children,strAlbumThumb}:AlbumProps)=>{
+
+const AlbumComponent=({idAlbum,strArtist,strAlbum,intYearReleased,children,strAlbumThumb}:Album)=>{
     return(
         <AlbumCard>
             <AlbumCard__Img
@@ -25,4 +18,4 @@ const Album=({idAlbum,strArtist,strAlbum,intYearReleased,children,strAlbumThumb}
         </AlbumCard>
     )
 }
-export default Album;
+export default AlbumComponent;
