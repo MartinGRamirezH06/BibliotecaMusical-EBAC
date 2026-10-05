@@ -3,21 +3,22 @@ import SongComponent from "../Song/Song";
 import type { Album, Song } from "../types";
 import { Link } from "react-router-dom";
 import { ActionButtons, MainContainer__ResultsContainer, ResultsContainer__ItemsContainer } from "./styles";
-import { useDispatch, UseDispatch } from 'react-redux';
-import { addAlbum, addSong } from "../../redux/libraryActions"; 
+import { AppDispatch } from "../../redux/store";
+import { useDispatch } from "react-redux";
+import { addAlbum, addSong } from "../../redux/slices/librarySilce";
 
 type SearchItem= Album | Song;
 
 export interface ResultsProps{
     searchResults:SearchItem[] | null;
-    onClick:(item: SearchItem) => void;
+    //onClick:(item: SearchItem) => void;
     loading:boolean;
     error:string | null;
 } 
 
-const SeachResults=({searchResults, onClick, loading,error}:ResultsProps)=>{
+const SeachResults=({searchResults, loading,error}:ResultsProps)=>{
     
-    const dispatch = useDispatch();
+    const dispatch = useDispatch<AppDispatch>();
 
     if(loading){
         return (
@@ -30,13 +31,20 @@ const SeachResults=({searchResults, onClick, loading,error}:ResultsProps)=>{
         return (
             <MainContainer__ResultsContainer>
                <h3>{error}</h3> 
-               <p>Intenta buscar otra ancion o artista o verifica tu conexion.</p>
+               <p>Intenta buscar otra cancion o artista o verifica tu conexion.</p>
             </MainContainer__ResultsContainer>
         );
     }
     if(!searchResults){
         return null;
     }
+
+    if(!Array.isArray(searchResults)){
+        <MainContainer__ResultsContainer>
+            <h3>Error de formato Intenta con "Artista - Canción" para pistas.</h3>
+        </MainContainer__ResultsContainer>
+    }
+
     if(searchResults.length===0){
         return(
             <MainContainer__ResultsContainer>
@@ -48,10 +56,8 @@ const SeachResults=({searchResults, onClick, loading,error}:ResultsProps)=>{
     return(
         <>
             <MainContainer__ResultsContainer>
-                {/* Hace la busqueda con Map de la lista que recibio como props */}
-                
-                {searchResults.map((result) => {
-                    const isAlbum = !("idTrack" in result);
+                {searchResults.map((result: any) => {
+                    const isAlbum = "idAlbum" in result && !("idTrack" in result);
                     return(
                         <ResultsContainer__ItemsContainer key={isAlbum ? result.idAlbum : result.idTrack}>
                             {isAlbum ? (

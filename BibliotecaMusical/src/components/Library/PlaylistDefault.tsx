@@ -4,7 +4,8 @@ import { Body__PlaylistDefult__Container, Card__Playlist_Song, Header__PlaylistD
 import SongComponent from "../Song/Song";
 import { ActionButtons } from "../SearchResults/styles";
 import { useState } from "react";
-import { removeSong } from "../../redux/libraryActions";
+import { removeSong}  from "../../redux/slices/librarySilce";
+
 
 interface PlaylistDefaultProps {        
     playlist: PlayList;

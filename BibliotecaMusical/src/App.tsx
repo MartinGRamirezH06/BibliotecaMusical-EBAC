@@ -9,14 +9,8 @@ import { Routes,Route } from 'react-router-dom'
 
 const App=()=>{
     const {    
-      //input,
       setInput,
-      //searchResults,
-      //setSearchResults,
-      library,
-      toogleLibrary,
       avoidRefresh,
-      AgregarALibreria,
       searchResults,
       loading,
       error,
@@ -31,15 +25,22 @@ const App=()=>{
           searchType={searchType} 
           setSearchType={setSearchType} />
 
-        <Main 
-          onToogleLibrary={toogleLibrary}
-          library={library}>
+        <Main>
+          {loading && <p>Buscando...</p>}
+          {error && <p>{error}</p>}
+          {searchResults &&(
+            <pre>{JSON.stringify(searchResults,null,2)}</pre>
+          )}
 
         </Main>
 
 
         <Routes>
-          <Route path='/' element={<SeachResults searchResults={searchResults} onClick={AgregarALibreria} loading={loading} error={error}/>}/>
+          <Route path='/' element={
+            <SeachResults 
+              searchResults={searchResults} 
+              loading={loading} 
+              error={error}/>}/>
           <Route path='/song/:id' element={<SongDetail/>}></Route>
         </Routes>
     </>

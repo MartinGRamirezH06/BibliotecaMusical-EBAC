@@ -1,19 +1,12 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import AlbumComponent from "../Album/Album";
-import SongComponent from "../Song/Song";
-import type { Song, Album } from "../types";
 import { LibraryContainer__ItemsContainer, LibraryContainer__TitleContainer, MainContainer__LibraryContainer } from "./styles";
 import { RootState } from "../../redux/store";
-import { ActionButtons } from "../SearchResults/styles";
-import { removeSong } from "../../redux/libraryActions";
 import { PlaylistDefault } from "./PlaylistDefault";
 
 
 const Library=()=>{
-
-    const dispatch = useDispatch();
-
-    const playlist = useSelector((state: RootState) => state.libraryReducers.playlist);
+    const playlist = useSelector((state: RootState) => state.library.playlist);
     console.log(`ELementos de la libreria: `, playlist)
 
     if(!playlist || playlist.length==0){

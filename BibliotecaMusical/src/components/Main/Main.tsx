@@ -1,17 +1,15 @@
-import React, { Component } from "react";
-import Song, { SongProps } from "../Song/Song.js";
-import SeachResults from "../SearchResults/SeachResults.js";
-import { AlbumProps } from "../Album/Album.js";
 import Library from "../Library/Library.js";
 import { Element__Button, MainContainer, MainContainer__MenuContainer, MainContainer__Nav, MenuContainer__AlbumsContainer, NavContainer, NavContainer__Element } from "./styles.js";
 import { AlbumCard, AlbumCard__Img } from "../Album/styles.js";
+import { Album } from "../types/index.js";
+import { Song } from "../types/index.js";
 
 export interface MainProps{
-    onToogleLibrary:()=>void;
-    library:(AlbumProps | SongProps)[]
+    // onToogleLibrary:()=>void;
+    // library:(Album | Song)[]
 }
 
-const Main = ({onToogleLibrary,library}:MainProps) => {
+const Main = (props:MainProps) => {
     return (
 
         <MainContainer>
@@ -34,7 +32,7 @@ const Main = ({onToogleLibrary,library}:MainProps) => {
                         Crear Lista
                     </Element__Button>
                 </NavContainer>
-                <Library library={library}></Library>
+                <Library />
             </MainContainer__Nav>
             <MainContainer__MenuContainer>
                 <h2>Albunes recien escuchados</h2>

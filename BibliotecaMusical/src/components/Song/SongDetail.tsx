@@ -1,8 +1,9 @@
 import { useParams } from "react-router-dom";
-import useFetchSearch from "../../hooks/useFetchSearch";
-import { useState } from "react";
 import { Song } from "../types/index";
 import { SongDetailsCard } from "./styles";
+import { fetchMusicData } from "../../redux/slices/searchSlice";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 export interface SongDetailProps extends Song{
     strArtist?:string;
@@ -12,16 +13,38 @@ export interface SongDetailProps extends Song{
 
 const SongDetail = () =>{
     const {id} = useParams();
-    const url = id 
-    ? `https://www.theaudiodb.com/api/v1/json/2/track.php?h=${id}`
-    : ``;
-    const {data,loading,error} = useFetchSearch <any>(url);
+    
+    const [song, setSong] = useState<SongDetailProps | null>(null);
+    const [loading, setLoading] = useState<boolean>(true);
+    const [error, setError] = useState<string | null>(null);
 
-    if (loading) return <p>Cargando...</p>;
-    if (error) return <p>{error}</p>;
-    if (!data) return <p>No se encontraron los detalles en el servidor</p>;
+    useEffect(()=>{
+        const fetchDetails = async() =>{
+            if(!id) return;
 
-    const song = data[0];
+            setLoading(true);
+            try{
+                const response = await axios.get(`https://www.theaudiodb.com/api/v1/json/123/track.php?h=${id}`)
+            
+                if(response.data && response.data.track){
+                    setSong(response.data.track[0]);
+                } else{
+                    setError("No se encontraron los detalles de esta pista.");
+                }
+            }catch(error){
+                setError("Fallo en el servidor al hacer la peticion de los detalles");
+                console.log(error);
+            } finally{
+                setLoading(false);
+            }
+        };
+        fetchDetails();
+    },[id]);
+
+    if(loading) return <SongDetailsCard><h3>Cargando...</h3>;</SongDetailsCard>
+    if(error) return <SongDetailsCard><h3>{error}</h3>;</SongDetailsCard>
+    if(!song) return <SongDetailsCard><h3>No se encontraron los detalles de esta cancion</h3></SongDetailsCard>
+
 
     return(
 

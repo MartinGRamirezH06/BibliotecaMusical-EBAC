@@ -1,6 +1,3 @@
-import { ReactNode, useEffect, useState } from "react";
-import useFetchSearch from "../../hooks/useFetchSearch";
-import { useParams } from "react-router-dom";
 import { SongCard } from "./styles";
 import { Song } from "../types";
 
