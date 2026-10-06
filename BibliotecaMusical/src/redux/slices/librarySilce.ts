@@ -44,13 +44,13 @@ export const librarySlice = createSlice(
             },
             addAlbum:(state, action: PayloadAction<any>)=>{
                 const albumExists = state.playlist.some(
-                    pl => String(pl.idPlaylist) === String(action.payload.idPlaylist)
+                    pl => String(pl.idPlaylist) === String(action.payload.idAlbum)
                 );
 
                 if(!albumExists){
                     const newAlbumPlaylist: PlayList = {
                         idPlaylist: action.payload.idAlbum,
-                        name: action.payload.name,
+                        name: action.payload.strAlbum,
                         songs: [],
                         strAlbumThumb: action.payload.strAlbumThumb,
                         strArtist: action.payload.strArtist,

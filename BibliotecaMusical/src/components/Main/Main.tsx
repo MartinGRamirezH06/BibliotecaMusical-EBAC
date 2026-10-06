@@ -4,12 +4,12 @@ import { AlbumCard, AlbumCard__Img } from "../Album/styles.js";
 import { Album } from "../types/index.js";
 import { Song } from "../types/index.js";
 
-export interface MainProps{
-    // onToogleLibrary:()=>void;
-    // library:(Album | Song)[]
-}
+// export interface MainProps{
+//     // onToogleLibrary:()=>void;
+//     // library:(Album | Song)[]
+// }
 
-const Main = (props:MainProps) => {
+const Main = () => {
     return (
 
         <MainContainer>
